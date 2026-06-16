@@ -1,0 +1,58 @@
+---
+// PoolPanel.astro - Left side panel showing faction sigils in a grid
+// Server-side render all factions, JS toggles excluded state
+
+const FACTIONS = [
+  {id:'reikland', name:'Reikland', lord:'Karl Franz', race:'The Empire', alliance:'Order', dlc:'base', emblem:'RE'},
+  {id:'karaz', name:'Karaz-a-Karak', lord:'Thorgrim Grudgebearer', race:'Dwarfs', alliance:'Order', dlc:'base', emblem:'KK'},
+  {id:'icecourt', name:'The Ice Court', lord:'Tzarina Katarin', race:'Kislev', alliance:'Order', dlc:'base', emblem:'IC'},
+  {id:'cathay', name:'Northern Provinces', lord:'Miao Ying', race:'Grand Cathay', alliance:'Order', dlc:'base', emblem:'NP'},
+  {id:'lothern', name:'Lothern', lord:'Tyrion', race:'High Elves', alliance:'Order', dlc:'base', emblem:'LO'},
+  {id:'hexoatl', name:'Hexoatl', lord:'Lord Mazdamundi', race:'Lizardmen', alliance:'Order', dlc:'base', emblem:'HX'},
+  {id:'naggarond', name:'Naggarond', lord:'Malekith', race:'Dark Elves', alliance:'Destruction', dlc:'base', emblem:'NG'},
+  {id:'clanmors', name:'Clan Mors', lord:'Queek Headtaker', race:'Skaven', alliance:'Destruction', dlc:'base', emblem:'CM'},
+  {id:'greenskins', name:'Greenskins', lord:'Grimgor Ironhide', race:'Orcs & Goblins', alliance:'Destruction', dlc:'base', emblem:'GS'},
+  {id:'sylvania', name:'Sylvania', lord:'Vlad von Carstein', race:'Vampire Counts', alliance:'Destruction', dlc:'base', emblem:'SY'},
+  {id:'khorne', name:'Exiles of Khorne', lord:'Skarbrand', race:'Daemons of Khorne', alliance:'Chaos', dlc:'base', emblem:'KH'},
+  {id:'tzeentch', name:'Oracles of Tzeentch', lord:'Kairos Fateweaver', race:'Daemons of Tzeentch', alliance:'Chaos', dlc:'base', emblem:'TZ'},
+  {id:'khemri', name:'Khemri', lord:'Settra the Imperishable', race:'Tomb Kings', alliance:'Destruction', dlc:'tk', emblem:'KM'},
+  {id:'vcoast', name:'The Awakened', lord:'Cylostra Direfin', race:'Vampire Coast', alliance:'Destruction', dlc:'vc', emblem:'AW'},
+  {id:'woodelves', name:'Argwylon', lord:'Durthu', race:'Wood Elves', alliance:'Order', dlc:'we', emblem:'AR'},
+  {id:'norsca', name:'Wintertooth', lord:'Throgg', race:'Norsca', alliance:'Destruction', dlc:'no', emblem:'WT'},
+  {id:'ogres', name:'Goldtooth', lord:'Greasus Goldtooth', race:'Ogre Kingdoms', alliance:'Destruction', dlc:'og', emblem:'GT'},
+  {id:'chaosdwarfs', name:'Zharr-Naggrund', lord:'Astragoth Ironhand', race:'Chaos Dwarfs', alliance:'Chaos', dlc:'cd', emblem:'ZN', art:{lord:'/assets/lords/chaosdwarfs.png', emblem:'/assets/emblems/chaosdwarfs.png', lordStyle:'width:118%;aspect-ratio:801/1150;left:50%;bottom:5%;transform:translateX(-50%)'}}
+];
+
+const ALLIANCE_COLORS: Record<string, string> = {
+  Order: '#5fb0d4',
+  Destruction: '#d4622e',
+  Chaos: '#b15bd1'
+};
+---
+
+<div class="pool-panel anim-slidein" id="pool-panel">
+  <div class="pool-panel__header">
+    <span class="pool-panel__title">In the Pool</span>
+    <span class="pool-panel__count" id="pool-count">{FACTIONS.length}</span>
+  </div>
+  <div class="pool-panel__grid">
+    {FACTIONS.map(f => {
+      const color = ALLIANCE_COLORS[f.alliance];
+      const hasArt = !!(f.art?.emblem);
+      return (
+        <div class="pool-panel__tile" data-faction-id={f.id} data-alliance={f.alliance} title={f.name} style={`border-color: ${color}50`}>
+          {hasArt ? (
+            <div class="pool-panel__tile-icon" style={`background-image: url('${f.art!.emblem}')`}></div>
+          ) : (
+            <span class="pool-panel__tile-monogram" style={`color: ${color}`}>{f.emblem}</span>
+          )}
+        </div>
+      );
+    })}
+  </div>
+  <div class="pool-panel__actions">
+    <div class="pool-panel__action-btn" id="pool-include-all">All</div>
+    <div class="pool-panel__action-btn" id="pool-exclude-all">None</div>
+  </div>
+  <div class="pool-panel__hint">Tap a sigil to exclude it</div>
+</div>

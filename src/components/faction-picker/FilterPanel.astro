@@ -1,0 +1,79 @@
+---
+// FilterPanel.astro - Right side panel with alliance filters and DLC checkboxes
+
+const FACTIONS = [
+  {id:'reikland', name:'Reikland', lord:'Karl Franz', race:'The Empire', alliance:'Order', dlc:'base', emblem:'RE'},
+  {id:'karaz', name:'Karaz-a-Karak', lord:'Thorgrim Grudgebearer', race:'Dwarfs', alliance:'Order', dlc:'base', emblem:'KK'},
+  {id:'icecourt', name:'The Ice Court', lord:'Tzarina Katarin', race:'Kislev', alliance:'Order', dlc:'base', emblem:'IC'},
+  {id:'cathay', name:'Northern Provinces', lord:'Miao Ying', race:'Grand Cathay', alliance:'Order', dlc:'base', emblem:'NP'},
+  {id:'lothern', name:'Lothern', lord:'Tyrion', race:'High Elves', alliance:'Order', dlc:'base', emblem:'LO'},
+  {id:'hexoatl', name:'Hexoatl', lord:'Lord Mazdamundi', race:'Lizardmen', alliance:'Order', dlc:'base', emblem:'HX'},
+  {id:'naggarond', name:'Naggarond', lord:'Malekith', race:'Dark Elves', alliance:'Destruction', dlc:'base', emblem:'NG'},
+  {id:'clanmors', name:'Clan Mors', lord:'Queek Headtaker', race:'Skaven', alliance:'Destruction', dlc:'base', emblem:'CM'},
+  {id:'greenskins', name:'Greenskins', lord:'Grimgor Ironhide', race:'Orcs & Goblins', alliance:'Destruction', dlc:'base', emblem:'GS'},
+  {id:'sylvania', name:'Sylvania', lord:'Vlad von Carstein', race:'Vampire Counts', alliance:'Destruction', dlc:'base', emblem:'SY'},
+  {id:'khorne', name:'Exiles of Khorne', lord:'Skarbrand', race:'Daemons of Khorne', alliance:'Chaos', dlc:'base', emblem:'KH'},
+  {id:'tzeentch', name:'Oracles of Tzeentch', lord:'Kairos Fateweaver', race:'Daemons of Tzeentch', alliance:'Chaos', dlc:'base', emblem:'TZ'},
+  {id:'khemri', name:'Khemri', lord:'Settra the Imperishable', race:'Tomb Kings', alliance:'Destruction', dlc:'tk', emblem:'KM'},
+  {id:'vcoast', name:'The Awakened', lord:'Cylostra Direfin', race:'Vampire Coast', alliance:'Destruction', dlc:'vc', emblem:'AW'},
+  {id:'woodelves', name:'Argwylon', lord:'Durthu', race:'Wood Elves', alliance:'Order', dlc:'we', emblem:'AR'},
+  {id:'norsca', name:'Wintertooth', lord:'Throgg', race:'Norsca', alliance:'Destruction', dlc:'no', emblem:'WT'},
+  {id:'ogres', name:'Goldtooth', lord:'Greasus Goldtooth', race:'Ogre Kingdoms', alliance:'Destruction', dlc:'og', emblem:'GT'},
+  {id:'chaosdwarfs', name:'Zharr-Naggrund', lord:'Astragoth Ironhand', race:'Chaos Dwarfs', alliance:'Chaos', dlc:'cd', emblem:'ZN', art:{lord:'/assets/lords/chaosdwarfs.png', emblem:'/assets/emblems/chaosdwarfs.png', lordStyle:'width:118%;aspect-ratio:801/1150;left:50%;bottom:5%;transform:translateX(-50%)'}}
+];
+
+const ALLIANCE_COLORS: Record<string, string> = {
+  Order: '#5fb0d4',
+  Destruction: '#d4622e',
+  Chaos: '#b15bd1'
+};
+
+const DLCS = [
+  {id:'base', label:'Base Game'},
+  {id:'tk', label:'Rise of the Tomb Kings'},
+  {id:'vc', label:'Curse of the Vampire Coast'},
+  {id:'we', label:'Realm of the Wood Elves'},
+  {id:'no', label:'Norsca'},
+  {id:'og', label:'Ogre Kingdoms'},
+  {id:'cd', label:'Forge of the Chaos Dwarfs'}
+];
+---
+
+<div class="filter-panel anim-slideinr" id="filter-panel">
+  <!-- Alliance section -->
+  <div class="filter-panel__section">
+    <div class="filter-panel__section-title">Grand Alliance</div>
+    <div class="filter-panel__chips">
+      {['Order', 'Destruction', 'Chaos'].map(alliance => {
+        const color = ALLIANCE_COLORS[alliance];
+        const count = FACTIONS.filter(f => f.alliance === alliance).length;
+        return (
+          <div class="filter-panel__chip filter-panel__chip--active"
+               data-alliance={alliance}
+               style={`border-color: ${color}; background: ${color}28; color: ${color}`}>
+            <span class="filter-panel__chip-dot" style={`background: ${color}; box-shadow: 0 0 8px ${color}`}></span>
+            {alliance}
+            <span class="filter-panel__chip-count">{count}</span>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+
+  <!-- DLC section -->
+  <div class="filter-panel__section">
+    <div class="filter-panel__section-title">Content / DLC</div>
+    {DLCS.map(d => {
+      const count = FACTIONS.filter(f => f.dlc === d.id).length;
+      return (
+        <div class="filter-panel__dlc-row" data-dlc={d.id}>
+          <span class="filter-panel__checkbox filter-panel__checkbox--checked">✓</span>
+          <span class="filter-panel__dlc-label">{d.label}</span>
+          <span class="filter-panel__dlc-count">{count}</span>
+        </div>
+      );
+    })}
+  </div>
+
+  <div class="filter-panel__reset-btn" id="reset-filters">↺ Reset filters</div>
+</div>
