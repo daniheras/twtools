@@ -8,7 +8,7 @@ import HistoryBar from './HistoryBar.astro';
 <div class="picker" id="faction-picker">
   <!-- Arcane background SVG -->
   <div class="picker__bg">
-    <svg width="660" height="660" viewBox="0 0 600 600" fill="none">
+    <svg width="1100" height="1100" viewBox="0 0 600 600" fill="none">
       <circle cx="300" cy="300" r="293" stroke="#c9a44e" stroke-width="1" stroke-dasharray="1.5 12"/>
       <circle cx="300" cy="300" r="259" stroke="#c9a44e" stroke-width="1"/>
       <circle cx="300" cy="300" r="252" stroke="#c9a44e" stroke-width="0.6" stroke-dasharray="0.8 7"/>
@@ -32,25 +32,36 @@ import HistoryBar from './HistoryBar.astro';
   <!-- Main scrollable content -->
   <div class="picker__scroll">
     <div class="picker__content">
-      <!-- Main area: pool panel + card deck + filter panel -->
+      <!-- Main area wrapper -->
       <div class="picker__main">
-        <div class="picker__side picker__side--left" id="panel-left">
-          <PoolPanel />
-        </div>
+        <div class="picker__main-inner">
+          <!-- Left panel: absolutely positioned -->
+          <div class="picker__side picker__side--left" id="panel-left">
+            <PoolPanel />
+          </div>
 
-        <div class="picker__center">
-          <div class="picker__spacer"></div>
-          <CardDeck />
-          <div class="picker__hint" id="action-hint">Click the deck to draw</div>
-          <div class="picker__controls">
-            <div class="picker__filter-toggle" id="filter-toggle">
-              Filters<span class="picker__filter-chevron" id="filter-chevron">▾</span>
+          <!-- Center column: the card area -->
+          <div class="picker__center">
+            <div class="picker__spacer" aria-hidden="true"></div>
+
+            <!-- Card deck area -->
+            <div class="picker__card-area">
+              <CardDeck />
+            </div>
+
+            <div class="picker__hint" id="action-hint">Click the deck to draw</div>
+
+            <div class="picker__controls">
+              <div class="picker__filter-toggle" id="filter-toggle">
+                Filters<span class="picker__filter-chevron" id="filter-chevron">▾</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="picker__side picker__side--right" id="panel-right">
-          <FilterPanel />
+          <!-- Right panel: absolutely positioned -->
+          <div class="picker__side picker__side--right" id="panel-right">
+            <FilterPanel />
+          </div>
         </div>
       </div>
 
