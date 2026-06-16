@@ -17,8 +17,25 @@
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
-body { background: #1c1812; }
+body {
+  background: #1c1812;
+  cursor: url('/assets/cursors/pointer_a.png') 6 1, default;
+}
 input { font-family: inherit; color: inherit; }
+
+/* ========================================================================
+   Custom Cursors (Kenney Cursor Pack - CC0)
+   ======================================================================== */
+
+/* Disabled / not-allowed */
+[disabled], .disabled, [aria-disabled="true"] {
+  cursor: url('/assets/cursors/disabled.png') 16 16, not-allowed;
+}
+
+/* Wait / loading */
+[aria-busy="true"], .is-loading {
+  cursor: url('/assets/cursors/busy_hourglass.png') 16 16, wait;
+}
 
 /* ========================================================================
    Scrollbar
@@ -153,7 +170,7 @@ input { font-family: inherit; color: inherit; }
   letter-spacing: .09em;
   text-transform: uppercase;
   color: #857a64;
-  cursor: pointer;
+  cursor: url('/assets/cursors/hand_small_point.png') 9 3, pointer;
 }
 
 .navbar__link:hover {
@@ -192,7 +209,7 @@ input { font-family: inherit; color: inherit; }
   font-size: 12px;
   letter-spacing: .07em;
   text-transform: uppercase;
-  cursor: pointer;
+  cursor: url('/assets/cursors/hand_small_point.png') 9 3, pointer;
   white-space: nowrap;
 }
 
@@ -428,7 +445,7 @@ input { font-family: inherit; color: inherit; }
   font-size: 12.5px;
   letter-spacing: .08em;
   text-transform: uppercase;
-  cursor: pointer;
+  cursor: url('/assets/cursors/hand_small_point.png') 9 3, pointer;
   transition: all .15s;
   border: 1px solid #3a3324;
   background: rgba(255,255,255,.02);
@@ -476,13 +493,17 @@ input { font-family: inherit; color: inherit; }
   width: 310px;
   height: 434px;
   perspective: 1500px;
-  cursor: pointer;
+  cursor: url('/assets/cursors/hand_small_open.png') 12 8, grab;
   transition: transform .25s ease;
   z-index: 1;
 }
 
 .card-deck__stack:hover {
   transform: translateY(-6px);
+}
+
+.card-deck__stack:active {
+  cursor: url('/assets/cursors/hand_small_closed.png') 12 8, grabbing;
 }
 
 /* ========================================================================
@@ -878,7 +899,7 @@ input { font-family: inherit; color: inherit; }
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  cursor: url('/assets/cursors/hand_small_point.png') 9 3, pointer;
   transition: all .14s;
   overflow: hidden;
 }
@@ -921,7 +942,7 @@ input { font-family: inherit; color: inherit; }
   font-size: 10px;
   letter-spacing: .1em;
   text-transform: uppercase;
-  cursor: pointer;
+  cursor: url('/assets/cursors/hand_small_point.png') 9 3, pointer;
 }
 
 .pool-panel__action-btn:hover {
@@ -981,7 +1002,7 @@ input { font-family: inherit; color: inherit; }
   align-items: center;
   gap: 8px;
   padding: 7px 12px;
-  cursor: pointer;
+  cursor: url('/assets/cursors/hand_small_point.png') 9 3, pointer;
   font-family: 'Saira Condensed', sans-serif;
   font-weight: 600;
   font-size: 12px;
@@ -1020,7 +1041,7 @@ input { font-family: inherit; color: inherit; }
   align-items: center;
   gap: 11px;
   padding: 8px;
-  cursor: pointer;
+  cursor: url('/assets/cursors/hand_small_point.png') 9 3, pointer;
   border-radius: 6px;
   transition: all .14s;
 }
@@ -1084,7 +1105,7 @@ input { font-family: inherit; color: inherit; }
   font-size: 10.5px;
   letter-spacing: .1em;
   text-transform: uppercase;
-  cursor: pointer;
+  cursor: url('/assets/cursors/hand_small_point.png') 9 3, pointer;
 }
 
 .filter-panel__reset-btn:hover {
@@ -1125,7 +1146,7 @@ input { font-family: inherit; color: inherit; }
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  cursor: url('/assets/cursors/hand_small_point.png') 9 3, pointer;
   overflow: hidden;
   transition: all .14s;
 }

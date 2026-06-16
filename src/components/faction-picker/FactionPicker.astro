@@ -207,7 +207,7 @@ import HistoryBar from './HistoryBar.astro';
     // Cursor
     const p = pool();
     const busy = phase === 'shuffling' || phase === 'revealing';
-    stack.style.cursor = (p.length === 0 || busy) ? 'default' : 'pointer';
+    stack.style.cursor = (p.length === 0 || busy) ? 'default' : '';
 
     // Render back face
     if (drawn) {
