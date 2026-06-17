@@ -92,6 +92,9 @@ import HistoryBar from './HistoryBar.astro';
   // Faction Picker - Client-side Logic
   // ============================================================
 
+  import { tiks } from '@rexa-developer/tiks';
+  tiks.init({ theme: 'soft', volume: 0.3 });
+
   const ALLIANCE_COLORS: Record<string, string> = { Order:'#5fb0d4', Destruction:'#d4622e', Chaos:'#b15bd1' };
 
   interface FactionArt {
@@ -405,6 +408,7 @@ import HistoryBar from './HistoryBar.astro';
 
     phase = 'shuffling';
     drawn = null;
+    tiks.swoosh();
     render();
 
     _t1 = setTimeout(() => {
@@ -416,6 +420,7 @@ import HistoryBar from './HistoryBar.astro';
     _t2 = setTimeout(() => {
       phase = 'revealed';
       history = [pick, ...history.filter(h => h.id !== pick.id)].slice(0, 5);
+      tiks.swoosh();
       render();
     }, 1580);
   }
@@ -423,6 +428,7 @@ import HistoryBar from './HistoryBar.astro';
   function selectHistory(f: Faction) {
     if (_t1) clearTimeout(_t1);
     if (_t2) clearTimeout(_t2);
+    tiks.click();
     phase = 'revealed';
     drawn = f;
     render();
@@ -430,35 +436,42 @@ import HistoryBar from './HistoryBar.astro';
 
   function toggleFilters() {
     filtersOpen = !filtersOpen;
+    tiks.toggle(filtersOpen);
     render();
   }
 
   function toggleAlliance(k: string) {
+    tiks.toggle(!alliances[k]);
     alliances[k] = !alliances[k];
     render();
   }
 
   function toggleDlc(id: string) {
+    tiks.toggle(!dlcs[id]);
     dlcs[id] = !dlcs[id];
     render();
   }
 
   function toggleExclude(id: string) {
+    tiks.click();
     excluded[id] = !excluded[id];
     render();
   }
 
   function includeAll() {
+    tiks.pop();
     Object.keys(excluded).forEach(k => delete excluded[k]);
     render();
   }
 
   function excludeAll() {
+    tiks.pop();
     availableByFilters().forEach(f => { excluded[f.id] = true; });
     render();
   }
 
   function resetFilters() {
+    tiks.swoosh();
     Object.keys(alliances).forEach(k => { alliances[k] = true; });
     Object.keys(dlcs).forEach(k => { dlcs[k] = true; });
     Object.keys(excluded).forEach(k => delete excluded[k]);
